@@ -1,16 +1,12 @@
-//npm install express --save
-const express = require("express");
-//npm install mysql2 --save
-const mysql = require("mysql2");
-//npm install cors --save
-const cors = require("cors");
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 
-//Host, user, password database
 const connection = mysql.createConnection({
     host:process.env.host,
     user:process.env.user,
@@ -18,33 +14,28 @@ const connection = mysql.createConnection({
     database: process.env.database
 });
 
-app.get('.....',(req, res)=>{
-    connection.query('....',(error,results)=>{
-        res.send(results);
-    });
+app.get('/test', (req, res) => {
+    connection.query(
+        `select time.yearquarter, 
+            sum(metrics.total_interactions) as total_interactions
+     from time
+     join metrics using (ccpost_id)
+     where time.yearquarter between 2022 and 2024
+     group by time.yearquarter
+     order by time.yearquarter asc;`,
+        (error, results) => {
+            if (error) {
+                console.error('database query error:', error);
+                res.status(500).send('database error');
+            } else {
+                res.json(results); // send the data as json
+            }
+        }
+    );
+
 });
 
-//Find single pokemon by name
-app.get('....', (req,res)=>{
-    const barNameRequest = req.params.name;
-    connection.query('.....',
-        [barNameRequest],
-        (error, results)=>{
-            res.send(results);
-            console.log("")
-        });
-
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
-
-app.get('...', (req,res)=>{});
-
-app.listen(port, () =>{
-    console.log(`Application is now running on port ${port}`);
-});
-
-app.get('/all', (req, res) => {
-    connection.query('.....', (error, results) => {
-        res.send(results);
-    })
-})
 
