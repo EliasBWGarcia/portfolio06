@@ -58,39 +58,8 @@
 
 </div>
 
-<canvas id="myChart" width="400" height=200"></canvas>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    fetch('/api/data')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => item.label_kolonne);
-            const values = data.map(item => item.value_kolonne);
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Dataset',
-                        data: values,
-                        backgroundColor: "",
-                        borderColor: "",
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('Fejl:', error));
-</script>
+<canvas id="myChart" width="auto" height="100%"></canvas>
+<script type="module" src="main.js"></script>
 </body>
 </html>
