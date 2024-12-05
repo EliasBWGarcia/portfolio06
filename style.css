@@ -52,8 +52,8 @@ br {
     background-size: contain;
     background-position: bottom;
     width: 47.5%;
-    height: 99%;
-    margin-left: 0.35rem;
+    height: 97.5%;
+    margin-left: 0.7rem;
     border-radius: 25px;
 
 }
@@ -64,8 +64,8 @@ br {
     background-size: contain;
     background-position: bottom;
     width: 47.5%;
-    height: 99%;
-    margin-right: 0.35rem;
+    height: 97.5%;
+    margin-right: 0.7rem;
     border-radius: 25px;
 
 }
@@ -73,10 +73,59 @@ br {
 .third_container {
     background-color: lightblue;
     height: 58rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.third_graph_container {
+    width: 95%;
+    height: 90%;
+    background-color: slategray;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: flex-start;
+}
+
+.third_graph_one {
+    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left;
+    width: 70%;
+    margin-left: 0.7rem;
+    height: 97.5%;
+    border-radius: 25px;
 
 }
 
 .fourth_container {
     background-color: lightyellow;
     height: 58rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fourth_graph_container {
+    width: 95%;
+    height: 90%;
+    background-color: slategray;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: flex-end
+}
+
+.fourth_graph_one {
+    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    width: 70%;
+    margin-right: 0.7rem;
+    height: 97.5%;
+    border-radius: 25px;
 }
