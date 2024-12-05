@@ -43,7 +43,7 @@ fetch('http://localhost:3000/test')
                     x: {
                         ticks: {
                             font: {
-                                size: 24 // Set the font size for x-axis labels
+                                size: 24
                             },
                             color: '',
 
