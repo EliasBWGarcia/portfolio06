@@ -1,9 +1,11 @@
 * {
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 body {
     margin: 0;
+
 }
 
 .main_title {
@@ -73,26 +75,43 @@ h2 {
 
 .third_container {
     display: flex;
-    justify-content: center;
-}
-
-.third_graph_container {
-    width: 100%;
+    background: #ffd500;
+    position: relative;
     height: 100vh;
-    background-image: url("third-page-picture.jpg");
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 50px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
 }
 
 .third_container_color {
-    background-color: #ffd500;
+    color: black;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     width: 100%;
-    z-index: -1;
+    padding: 0 0 0 25px;
 }
+
+.third_container_color h2 {
+    font-size: 4em;
+}
+
+.third_container_color span {
+    color: #0382ab;
+}
+
+.third_graph_container {
+    width: 50%;
+    height: 100vh;
+    background-image: url("third-page-picture.jpg");
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
 
 /* .third_graph_one {
     background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");

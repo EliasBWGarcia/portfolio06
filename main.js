@@ -125,7 +125,7 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
 
 
 
-fetch('/getData/category/reactions')
+fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
         console.log('Fetched Data:', data);
