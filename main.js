@@ -129,7 +129,8 @@ fetch('http://localhost:3000/test')
                     data: values,
                     backgroundColor: "rgba(229,15,21)",
                     borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    tension: 0.3
                 }]
             },
             options: {
@@ -148,8 +149,14 @@ fetch('http://localhost:3000/test')
                         ticks: {
                             font: {
                                 size: 30
+                            },
+                            // med hjælp fra chatten:
+                            callback: function(value) {
+                                return value >= 1000000
+                                    ? `${value / 1000000}M`
+                                    : value.toLocaleString();
                             }
-                        }
+                        },
                     },
                     x: {
                         ticks: {
