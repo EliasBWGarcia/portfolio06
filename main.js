@@ -105,8 +105,22 @@ fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interact
     })
 
 
-//  --  graph container 2  --
-fetch('')
+//  --  graph container 4  --
+fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100')
+    .then(response => response.json())
+    .then(jsondata => {
+        const chartObj ={
+            type: 'bar',
+            data: {
+                labels: getLabelArrFromJson(jsondata, 'post_type'),
+                datasets: [getDatasetObjFromJson(0, jsondata, 'Average Interactions')]
+            }
+        }
+
+        const chartDom = document.querySelector(".fourth_container > div:nth-child(2) > div > canvas").getContext('2d')
+        new Chart(chartDom, chartObj)
+    })
+
 
 
 
