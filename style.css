@@ -1,8 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
     max-width: 100%;
-
 }
 
 body {
@@ -76,19 +74,41 @@ h2 {
 
 .third_container {
     display: flex;
-    justify-content: center;
+    background: #ffd500;
+    position: relative;
+    height: 100vh;
+}
+
+.third_container_color {
+    color: black;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 0 0 25px;
+}
+
+.third_container_color h2 {
+    font-size: 4em;
+}
+
+.third_container_color span {
+    color: #0382ab;
 }
 
 .third_graph_container {
-    width: 100%;
+    width: 50%;
     height: 100vh;
     background-image: url("third-page-picture.jpg");
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 50px;
+    background-size: cover;
+    background-position: center;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
+    position: absolute;
+    right: 0;
+    z-index: 1;
 }
 
 .third_container_color {
@@ -127,6 +147,7 @@ h2 {
 }
 .fourth_container > div:nth-child(2) > div {
     height: 80vh;
+    width: 100%;
 }
 
 /* --  fifth container  -- */
