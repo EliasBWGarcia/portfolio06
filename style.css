@@ -1,5 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    margin: 0px;
+    margin: 0;
 }
 
 .main_title {
@@ -70,21 +74,20 @@ h2 {
 .third_container {
     display: flex;
     justify-content: center;
-    border: solid red;
 }
 
 .third_graph_container {
     width: 100%;
     height: 100vh;
-    background-color: slategray;
+    background-image: url("third-page-picture.jpg");
     display: flex;
-    align-items: center;
-    border-radius: 25px;
-    justify-content: flex-start;
-    border: solid red;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 50px;
 }
 
-.third_container_header {
+.third_container_color {
+    background-color: #ffd500;
     width: 50%;
 }
 
