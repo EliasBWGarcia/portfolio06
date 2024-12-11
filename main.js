@@ -3,7 +3,7 @@ function getLabelArrFromJson (json, key) {
     //this function takes all the keyvalues with the specified key and returns them as an array
     const labelArr = []
     for (let obj of json) {
-        labelArr.push(obj[key]) //we are using "[]" and not obj.key because then it reads the variable and not literally "key"
+        labelArr.push(obj[key]) //we are using "[]" and n ot obj.key because then it reads the variable and not literally "key"
     }
     return labelArr
 }

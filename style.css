@@ -155,7 +155,7 @@ h2 {
     background-color: #ffd500;
     height: 100vh;
     display: flex;
-    flex-direction: row; /* Changed from row-reverse to row */
+    flex-direction: row; /* Changed  from row-reverse to row */
     align-items: center;
 }
 .fifth_container > div {
@@ -164,7 +164,7 @@ h2 {
 .fifth_container > div > h2 {
     padding-top: 20%; /* Changed from padding-bottom to padding-top */
     font-size: x-large;
-    padding-left: 10%
+    padding-left: 10%;
     padding-right: 10%
 }
 .fifth_container > div:nth-child(2) > div > canvas {

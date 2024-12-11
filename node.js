@@ -85,7 +85,7 @@ app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:havin
         (error, results) => {
             if (error) {
                 console.log(error)
-                res.send('it does not work')}
+                res.send('it does not  work')}
             else {
                 res.json(results)
             }
