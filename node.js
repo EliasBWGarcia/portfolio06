@@ -86,6 +86,33 @@ app.get('/getData/notAgainst/byTotalInteractions/select=:select', (req, res) => 
         })
 })
 
+app.get('/getData/category/reactions', (req, res) => {
+    const query =
+        `SELECT 
+    sp.category,               
+    AVG(m.reactions) AS avg_reactions
+FROM 
+    metrics m
+JOIN 
+    sourcepop sp ON m.ccpageid = sp.ccpageid  
+GROUP BY
+    sp.category
+ORDER BY
+    avg_reactions DESC;
+    `
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+        })
+})
+
+
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

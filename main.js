@@ -111,19 +111,19 @@ fetch('')
 
 
 
-fetch('http://localhost:3000/test')
+fetch('/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
         console.log('Fetched Data:', data);
 
-        const labels = data.map(item => item.yearquarter);
-        const values = data.map(item => item.total_interactions);
+        const labels = data.map(item => item.category);
+        const values = data.map(item => item.avg_reactions);
 
         console.log('Labels:', labels, 'Values:', values);
 
         const ctx = document.getElementById('myChart').getContext('2d');
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
