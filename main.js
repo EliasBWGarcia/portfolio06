@@ -135,21 +135,20 @@ fetch('http://localhost:3000/getData/category/reactions')
 
         console.log('Labels:', labels, 'Values:', values);
 
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Total Interactions',
+                    label: 'Average Interactions per Category',
                     data: values,
-                    backgroundColor: "rgba(229,15,21)",
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 1,
+                    backgroundColor: "#005bbb",
                     tension: 0.3
                 }]
             },
             options: {
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         labels: {
@@ -166,12 +165,6 @@ fetch('http://localhost:3000/getData/category/reactions')
                             font: {
                                 size: 30
                             },
-                            // med hjælp fra chatten:
-                            callback: function(value) {
-                                return value >= 1000000
-                                    ? `${value / 1000000}M`
-                                    : value.toLocaleString();
-                            }
                         },
                     },
                     x: {
@@ -187,6 +180,9 @@ fetch('http://localhost:3000/getData/category/reactions')
             }
         });
     })
+
+    document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
+
     .catch(error => {
         console.error('Error fetching data:', error);
     });

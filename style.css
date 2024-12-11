@@ -1,5 +1,8 @@
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 100%;
+
 }
 
 body {
@@ -126,3 +129,23 @@ h2 {
     height: 80vh;
 }
 
+/* --  fifth container  -- */
+.fifth_container {
+    background-color: #ffd500;
+    height: 100vh;
+    display: flex;
+    flex-direction: row; /* Changed from row-reverse to row */
+    align-items: center;
+}
+.fifth_container > div {
+    width: 50%;
+}
+.fifth_container > div > h2 {
+    padding-top: 20%; /* Changed from padding-bottom to padding-top */
+    font-size: x-large;
+    padding-left: 10%
+    padding-right: 10%
+}
+.fifth_container > div:nth-child(2) > div > canvas {
+    height: 10vh;
+}
