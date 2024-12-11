@@ -60,7 +60,6 @@ function addContainer2GraphStylingKeys (chartObj) {
             },
             y: {
                 beginAtZero: false,
-
                 grid: {
                     drawOnChartArea:false
                 }
@@ -191,7 +190,6 @@ fetch('http://localhost:3000/getData/category/reactions')
                                 size: 24
                             },
                             color: '',
-
                         }
                     },
                 }
