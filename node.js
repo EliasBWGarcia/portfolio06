@@ -63,18 +63,50 @@ app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     })
 })
 
-app.get('/getData/notAgainst/byTotalInteractions/select=:select', (req, res) => {
+app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:having?', (req, res) => {
+    console.log(req.params)
+    let havingStr = ''
+    if (req.params.having) {
+        havingStr = `having ${req.params.having}`
+    }
     const query =
-        `select avg(metrics.total_interactions), metrics.post_type
+        `select avg(metrics.total_interactions), ${req.params.select}
         from metrics
         inner join \`time\`
         on metrics.ccpost_id = \`time\`.ccpost_id
         inner join classification
         on metrics.ccpost_id = classification.ccpost_id
         where classification.gpt_ukraine_for_imod != "imod" 
-        group by metrics.post_type
-        having avg(metrics.total_interactions) > 100
-        order by avg(metrics.total_interactions)`
+        group by ${req.params.select}
+        ${havingStr}
+        order by avg(metrics.total_interactions) desc;`
+    console.log(query)
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+
+        })
+})
+
+app.get('/getData/category/reactions', (req, res) => {
+    const query =
+        `SELECT 
+    sp.category,               
+    AVG(m.reactions) AS avg_reactions
+FROM 
+    metrics m
+JOIN 
+    sourcepop sp ON m.ccpageid = sp.ccpageid  
+GROUP BY
+    sp.category
+ORDER BY
+    avg_reactions DESC;
+    `
     connection.query(query,
         (error, results) => {
             if (error) {
@@ -85,6 +117,8 @@ app.get('/getData/notAgainst/byTotalInteractions/select=:select', (req, res) => 
             }
         })
 })
+
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
