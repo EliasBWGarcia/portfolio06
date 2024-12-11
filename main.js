@@ -1,43 +1,3 @@
-const jsontest = [
-    {
-        "count(*)": 30395,
-        "yearquarter": "2022Q1"
-    },
-    {
-        "count(*)": 21812,
-        "yearquarter": "2022Q2"
-    },
-    {
-        "count(*)": 10554,
-        "yearquarter": "2022Q3"
-    },
-    {
-        "count(*)": 10097,
-        "yearquarter": "2022Q4"
-    },
-    {
-        "count(*)": 12453,
-        "yearquarter": "2023Q1"
-    },
-    {
-        "count(*)": 7900,
-        "yearquarter": "2023Q2"
-    },
-    {
-        "count(*)": 5929,
-        "yearquarter": "2023Q3"
-    },
-    {
-        "count(*)": 4699,
-        "yearquarter": "2023Q4"
-    },
-    {
-        "count(*)": 4683,
-        "yearquarter": "2024Q1"
-    }
-]
-
-
 // --  functions for creating graphs from backend json-data  --
 function getLabelArrFromJson (json, key) {
     //this function takes all the keyvalues with the specified key and returns them as an array
@@ -62,7 +22,6 @@ function getDatasetObjFromJson (keyNumber, json, label) { //!!important!! use 0 
     const objKeyArr = Object.keys(json[0]) //we assume the keys are the same in all objects and therefore only check the first one
     const key = objKeyArr[keyNumber]
     for (let obj of json) {
-        console.log(obj)
         datasetObj.data.push(obj[key])
     }
 
@@ -72,27 +31,41 @@ function getDatasetObjFromJson (keyNumber, json, label) { //!!important!! use 0 
 
 
 //  --  graph container 2  --
-const chartobj = {
-    type:'bar'
+function addContainer2GraphStylingKeys (chartObj) {
+    //since i want both of my graphs to look the same, and not make the fetchcode to confusing, i have made the styling options into a function that apllies it to the chartObj
+    const datasetObj = chartObj.data.datasets[0]
+    datasetObj.pointRadius = 0
+    datasetObj.borderWidth = 10
+    datasetObj.fill = true
+
+    chartObj.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+                align: 'start',
+                labels: {
+                    boxWidth: 0,
+                    font: {
+                        size: 30
+                    }
+                }
+            }
+        }
+    }
+
+    //gradiant! youtube tutorial for doing it to other graphs: https://www.youtube.com/watch?v=6hgc9sPDiho
+
 
 }
 
-chartobj.data = {
-    labels: ['2022Q1','2022Q2','2022Q3'],
-    datasets: [{
-        label: 'Total posts',
-        data: [30395, 21812, 10554]
-    }]
-}
 
-const container2Chart1 = document.querySelector(".second_container > div > div > div:nth-child(1) > canvas").getContext('2d')
-const container2TotalPosts = new Chart(container2Chart1, chartobj)
 
-//chart 2
-fetch('http://localhost:3000/getData/byQuarter/select=count(*);having=count(*)>1000')
+//chart 1 - total posts
+fetch('http://localhost:3000/getData/byQuarter/select=count(*);having=yearquarter>="2022Q1"')
     .then(response => response.json())
     .then(jsondata => {
-        console.log(jsondata)
         const chartObj ={
             type: 'line',
             data: {
@@ -100,10 +73,26 @@ fetch('http://localhost:3000/getData/byQuarter/select=count(*);having=count(*)>1
                 datasets: [getDatasetObjFromJson(0, jsondata, 'Total Posts')]
             }
         }
-        const chartDom = document.querySelector(".second_container > div > div > div:nth-child(2) > canvas").getContext('2d')
+        addContainer2GraphStylingKeys(chartObj)
+        const chartDom = document.querySelector(".second_container > div > div > div:nth-child(1) > canvas").getContext('2d')
         new Chart(chartDom, chartObj)
     })
 
+//chart 2 - avg interactions
+fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interactions);having=yearquarter>="2022Q1"')
+    .then(response => response.json())
+    .then(jsondata => {
+        const chartObj ={
+            type: 'line',
+            data: {
+                labels: getLabelArrFromJson(jsondata, 'yearquarter'),
+                datasets: [getDatasetObjFromJson(0, jsondata, 'Average Interactions')]
+            }
+        }
+        addContainer2GraphStylingKeys(chartObj)
+        const chartDom = document.querySelector(".second_container > div > div > div:nth-child(2) > canvas").getContext('2d')
+        new Chart(chartDom, chartObj)
+    })
 
 
 

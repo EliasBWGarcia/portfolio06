@@ -30,47 +30,42 @@ br {
 
 /* --  second container  -- */
 .second_container {
-    background-color: lightyellow;
-    height: 58rem;
+    background-color: #ffd500;
+    height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-
 }
-
-.second_graph_container {
-    width: 95%;
-    height: 90%;
-    background-color: slategray;
+.second_container>div {
+    border: black 5px;
+    border-top: solid;
+    border-bottom: solid;
+    margin: 5%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 25px;
+    flex-direction: column;
+}
+.second_container>div>p {
+    font-size: xx-large;
+    font-weight: bolder;
+}
+.second_container>div>div {
+    display: flex;
+    justify-content: center;
+    height: 80%;
+}
+.second_container>div>div>div {
+    display: flex;
+    margin: 2vw;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    width: 100%;
+}
+.second_container > div > div > div > canvas {
+    display: block;
+
 }
 
-.second_graph_one {
-    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: bottom;
-    width: 47.5%;
-    height: 97.5%;
-    margin-left: 0.7rem;
-    border-radius: 25px;
-
-}
-
-.second_graph_two {
-    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: bottom;
-    width: 47.5%;
-    height: 97.5%;
-    margin-right: 0.7rem;
-    border-radius: 25px;
-
-}
+/* --  third container  -- */
 
 .third_container {
     background-color: lightblue;
