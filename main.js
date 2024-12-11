@@ -52,14 +52,25 @@ function addContainer2GraphStylingKeys (chartObj) {
                     }
                 }
             }
+        },
+        scales: {
+            x: {
+                ticks: {maxTicksLimit: 5},
+                grid: {drawOnChartArea:false}
+            },
+            y: {
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks: {maxTicksLimit: 5},
+                grid: {
+                    drawOnChartArea:false
+                }
+            }
         }
     }
 
     //gradiant! youtube tutorial for doing it to other graphs: https://www.youtube.com/watch?v=6hgc9sPDiho
-
-
 }
-
 
 
 //chart 1 - total posts
