@@ -63,7 +63,28 @@ app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     })
 })
 
-app.get('/getData/byTotalInteractions/')
+app.get('/getData/notAgainst/byTotalInteractions/select=:select', (req, res) => {
+    const query =
+        `select avg(metrics.total_interactions), metrics.post_type
+        from metrics
+        inner join \`time\`
+        on metrics.ccpost_id = \`time\`.ccpost_id
+        inner join classification
+        on metrics.ccpost_id = classification.ccpost_id
+        where classification.gpt_ukraine_for_imod != "imod" 
+        group by metrics.post_type
+        having avg(metrics.total_interactions) > 100
+        order by avg(metrics.total_interactions)`
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+        })
+})
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

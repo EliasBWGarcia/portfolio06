@@ -105,6 +105,8 @@ fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interact
     })
 
 
+//  --  graph container 2  --
+fetch('')
 
 
 
@@ -173,5 +175,4 @@ fetch('http://localhost:3000/test')
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        alert('Failed to load data for the chart.');
     });
