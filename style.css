@@ -124,5 +124,6 @@ h2 {
 }
 .fourth_container > div:nth-child(2) > div {
     height: 80vh;
+    width: 100%;
 }
 

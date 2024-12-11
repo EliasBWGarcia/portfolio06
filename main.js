@@ -106,6 +106,22 @@ fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interact
 
 
 //  --  graph container 4  --
+function addContainer4GraphStylingKeys (chartObj) {
+    const datasetObj = chartObj.data.datasets[0]
+    datasetObj.borderColor = ['#ffd500']
+    datasetObj.backgroundColor = ['#ffd500']
+
+
+    chartObj.options = {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false
+    }
+
+    document.querySelector(".fourth_container > div:nth-child(2) > div > canvas").style.height = '80vh'
+}
+
+
 fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100')
     .then(response => response.json())
     .then(jsondata => {
@@ -116,6 +132,8 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
                 datasets: [getDatasetObjFromJson(0, jsondata, 'Average Interactions')]
             }
         }
+
+        addContainer4GraphStylingKeys(chartObj)
 
         const chartDom = document.querySelector(".fourth_container > div:nth-child(2) > div > canvas").getContext('2d')
         new Chart(chartDom, chartObj)
@@ -128,7 +146,7 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
 fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log('Fetched Data:', data);
+        console.log(data);
 
         const labels = data.map(item => item.category);
         const values = data.map(item => item.avg_reactions);
