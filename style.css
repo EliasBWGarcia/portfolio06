@@ -84,11 +84,14 @@ h2 {
     align-items: flex-start;
     flex-direction: column;
     padding: 50px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
 }
 
 .third_container_color {
     background-color: #ffd500;
-    width: 50%;
+    width: 100%;
+    z-index: -1;
 }
 
 /* .third_graph_one {
