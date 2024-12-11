@@ -63,6 +63,8 @@ app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     })
 })
 
+app.get('/getData/byTotalInteractions/')
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

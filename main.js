@@ -59,9 +59,8 @@ function addContainer2GraphStylingKeys (chartObj) {
                 grid: {drawOnChartArea:false}
             },
             y: {
-                suggestedMin: 0,
-                suggestedMax: 100,
-                ticks: {maxTicksLimit: 5},
+                beginAtZero: false,
+
                 grid: {
                     drawOnChartArea:false
                 }

@@ -27,6 +27,11 @@ br {
    background-position: center;
 }
 
+h2 {
+    font-size: xxx-large;
+    font-weight: bolder;
+}
+
 
 /* --  second container  -- */
 .second_container {
@@ -44,10 +49,6 @@ br {
     display: flex;
     flex-direction: column;
 }
-.second_container>div>p {
-    font-size: xxx-large;
-    font-weight: bolder;
-}
 .second_container>div>div {
     display: flex;
     justify-content: center;
@@ -62,7 +63,6 @@ br {
 }
 .second_container > div > div > div > canvas {
     display: block;
-
 }
 
 /* --  third container  -- */
@@ -98,6 +98,8 @@ br {
 
 }
 
+
+/* --  third container  -- */
 .fourth_container {
     background-color: lightyellow;
     height: 58rem;
