@@ -1,29 +1,218 @@
+// --  functions for creating graphs from backend json-data  --
+function getLabelArrFromJson (json, key) {
+    //this function takes all the keyvalues with the specified key and returns them as an array
+    const labelArr = []
+    for (let obj of json) {
+        //we bruteforce a replace function for each charector in string where we remove all the "_" with spaces, it is in a for-loop because otherwise it will only replace the first one
+        let labelStr = obj[key]
+        for (let i = 0; i < obj[key].length; i++) {
+            labelStr = labelStr.replace('_',' ')
+        }
+        labelArr.push(labelStr) //we are using "[]" and n ot obj.key because then it reads the variable and not literally "key"
+    }
+    return labelArr
+}
 
 
-fetch('http://localhost:3000/test')
+
+function getDatasetObjFromJson (keyNumber, json, label) { //!!important!! use 0 as first keyNumber
+    // this function first adds the datasets-key if it does not exist,
+    // then it pushes a dataset-object with the keyvalues from the keyNumber from the argument
+    // it also adds a label as a string that can be whatever you want.
+    // the reason we use the keyNumber and not just the first key, witch would be the same as the first collum in our data-table is so that we can get multible datasets without making more fetch-requests.
+
+    const datasetObj = { //this is the object we will push to the datasets-array
+        label: label,
+        data: []
+    }
+
+    const objKeyArr = Object.keys(json[0]) //we assume the keys are the same in all objects and therefore only check the first one
+    const key = objKeyArr[keyNumber]
+    for (let obj of json) {
+        datasetObj.data.push(obj[key])
+    }
+
+    return datasetObj
+}
+
+
+
+//  --  graph container 2  --
+function addContainer2GraphStylingKeys (chartObj) {
+    //since i want both of my graphs to look the same, and not make the fetchcode to confusing, i have made the styling options into a function that apllies it to the chartObj
+    const datasetObj = chartObj.data.datasets[0]
+    datasetObj.pointRadius = 0
+    datasetObj.borderWidth = 10
+    datasetObj.fill = true
+    datasetObj.backgroundColor = ['#b68e00']
+    datasetObj.borderColor = '#ffd500'
+
+    chartObj.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+                align: 'start',
+                labels: {
+                    color: 'white',
+                    boxWidth: 0,
+                    font: {
+                        size: 30,
+
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    maxTicksLimit: 5,
+                    color: 'lightgrey'
+                },
+                grid: {drawOnChartArea:false}
+            },
+            y: {
+                beginAtZero: false,
+                grid: {
+                    drawOnChartArea:false
+                },
+                ticks: {
+                    color: 'lightgrey'
+                }
+            }
+        }
+    }
+    //yellow color #ffd500
+    //gradiant! youtube tutorial for doing it to other graphs: https://www.youtube.com/watch?v=6hgc9sPDiho
+}
+
+
+//chart 1 - total posts
+fetch('http://localhost:3000/getData/byQuarter/select=count(*);having=yearquarter>="2022Q1"')
+    .then(response => response.json())
+    .then(jsondata => {
+        const chartObj ={
+            type: 'line',
+            data: {
+                labels: getLabelArrFromJson(jsondata, 'yearquarter'),
+                datasets: [getDatasetObjFromJson(0, jsondata, 'Total Posts')]
+            }
+        }
+        addContainer2GraphStylingKeys(chartObj)
+        const chartDom = document.querySelector(".second_container > div > div > div:nth-child(1) > canvas").getContext('2d')
+        new Chart(chartDom, chartObj)
+    })
+
+//chart 2 - avg interactions
+fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interactions);having=yearquarter>="2022Q1"')
+    .then(response => response.json())
+    .then(jsondata => {
+        const chartObj ={
+            type: 'line',
+            data: {
+                labels: getLabelArrFromJson(jsondata, 'yearquarter'),
+                datasets: [getDatasetObjFromJson(0, jsondata, 'Average Interactions')]
+            }
+        }
+        addContainer2GraphStylingKeys(chartObj)
+        const chartDom = document.querySelector(".second_container > div > div > div:nth-child(2) > canvas").getContext('2d')
+        new Chart(chartDom, chartObj)
+    })
+
+
+//  --  graph container 4  --
+function addContainer4GraphStylingKeys (chartObj) {
+    const datasetObj = chartObj.data.datasets[0]
+    datasetObj.borderColor = ['#ffd500']
+    datasetObj.backgroundColor = ['#ffd500']
+
+
+    chartObj.options = {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 0,
+                    color: 'white'
+                }
+            }
+        },
+        scales: {
+            x: {
+                position: 'top',
+                ticks: {
+                    color: 'darkgrey',
+                    maxTicksLimit: 4
+                },
+                grid: {drawOnChartArea:false}
+            },
+            y: {
+                ticks: {
+                    color: 'white',
+                    mirror: true,
+                    z: 1,
+                    font: {
+                        size: 30
+                    }
+                }
+            }
+        }
+    }
+
+    document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").style.height = '80vh'
+}
+
+
+fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100')
+    .then(response => response.json())
+    .then(jsondata => {
+        const chartObj ={
+            type: 'bar',
+            data: {
+                labels: getLabelArrFromJson(jsondata, 'post_type'),
+                datasets: [getDatasetObjFromJson(0, jsondata, '*Average Interactions Per Post Type')]
+            }
+        }
+
+        addContainer4GraphStylingKeys(chartObj)
+
+        const chartDom = document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").getContext('2d')
+        new Chart(chartDom, chartObj)
+    })
+
+
+
+
+//  --  graph container 5  --
+fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log('Fetched Data:', data);
+        console.log(data);
 
-        const labels = data.map(item => item.yearquarter);
-        const values = data.map(item => item.total_interactions);
+        const labels = data.map(item => item.category);
+        const values = data.map(item => item.avg_reactions);
 
         console.log('Labels:', labels, 'Values:', values);
 
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").getContext('2d');
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Total Interactions',
+                    label: 'Average Interactions per Category',
                     data: values,
-                    backgroundColor: "rgba(229,15,21)",
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 1
+                    backgroundColor: "#005bbb",
+                    tension: 0.3
                 }]
             },
             options: {
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         labels: {
@@ -39,8 +228,8 @@ fetch('http://localhost:3000/test')
                         ticks: {
                             font: {
                                 size: 30
-                            }
-                        }
+                            },
+                        },
                     },
                     x: {
                         ticks: {
@@ -48,18 +237,18 @@ fetch('http://localhost:3000/test')
                                 size: 24
                             },
                             color: '',
-
                         }
                     },
                 }
             }
         });
     })
+
+    document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
+
     .catch(error => {
         console.error('Error fetching data:', error);
-        alert('Failed to load data for the chart.');
     });
-
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
     .then(data => {
@@ -131,4 +320,3 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
         console.error('Error fetching data:', error);
         alert('Failed to load data for the top words chart.');
     });
-

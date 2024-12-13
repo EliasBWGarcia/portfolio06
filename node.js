@@ -1,87 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
-const _ = require('lodash');
-const stopwordsIso = require('stopwords-iso'); // Correct usage of stopwords-iso
-
-// List of supported languages for stopwords
-const supportedLanguages = ['en', 'fr', 'da', 'de']; // English, French, Danish, German
-
-// Synonym Mapping
-const synonymMapping = {
-    'guerre': 'krig', // Both mean "war"
-    'krieg': 'krig',
-    'russische': 'russer',
-    'russie': 'russer',
-    'russischen': 'russer',
-    'ukrainische': 'ukraine',
-    'ukraine': 'ukraine',
-    'russe': 'russer',
-    'russie': 'russer',
-    'politiek': 'politik',
-    'politik': 'politik',
-    'germany': 'germany',
-    'deutschland': 'germany',
-    'deutschen': 'germany',
-    'putin': 'putin',
-    'putins': 'putin',
-    'europe': 'europa',
-    'europa': 'europa',
-    'ukrainischen': 'ukraine',
-    'russland': 'russer',
-    'präsident': 'putin',
-    'russlands': 'rusland',
-    'russia': 'russer',
-    'ukrainske': 'ukraine',
-    'angriffskrieg': 'invasion',
-    'président': 'putin',
-    'union': 'nato',
-    'nato': 'nato',
-    'berlin': 'germany',
-    'ukrainiens': 'ukraine',
-    'ukrainien': 'ukraine',
-    'euro': 'penge',
-    'pays': 'penge',
-    'unterstützung': 'støtte',
-    'bundestag': 'politik',
-    'bundesregierung': 'politik',
-    'welt': 'verdenen',
-    'krigen': 'krig',
-    'waffen': 'våben',
-    'hilfe': 'støtte',
-    'international': 'verdenen',
-    'deutsche': 'germany',
-    'unterstützen': 'støtte',
-    'russes': 'russer',
-    'krieges': 'krig',
-    'gemeinsam': 'nato',
-    'ukrainer': 'ukraine',
-    'europäischen': 'europa',
-    'poutine': 'putin'
-};
-
-// Combine stopwords from multiple languages dynamically
-const allStopWords = new Set();
-
-supportedLanguages.forEach(language => {
-    const stopwords = stopwordsIso[language]; // Access stopwords directly by language code
-    if (stopwords) {
-        stopwords.forEach(word => allStopWords.add(word.toLowerCase()));
-    } else {
-        console.warn(`No stopwords found for language: ${language}`);
-    }
-});
-
-const normalizeWord = (word) => {
-    return synonymMapping[word] || word;
-};
-
-// Additional words to ignore after normalization (e.g., irrelevant terms, common names, etc.)
-const ignoreList = new Set([
-    'https', 'www', 'com', 'de', 'fr', 'uk', 'eu', 'org', 'land', 'situation', // Examples of common, irrelevant terms
-     'germany', 'france', 'rusland', 'frieden', 'danmark', 'krig', 'lage', 'ukraine' // Example of specific terms you may want to ignore
-]);
-
 
 const app = express();
 const port = 3000;
@@ -94,6 +13,11 @@ const connection = mysql.createConnection({
     password: process.env.password,
     database: process.env.database
 });
+
+app.get('/hay', (req, res) => {
+    res.send("hello there")
+    console.log(req)
+})
 
 // Query to fetch all comments from the MySQL database
 app.get('/word-count', (req, res) => {
@@ -140,8 +64,93 @@ app.get('/test', (req, res) => {
             }
         }
     );
-
 });
+
+app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
+    // This endpoint gives you back data grouped by quarter, it is usefull for showing trends over time.
+    // this endpoint has two params, on for the selected collumn you want to see, and on for an optional 'having' statement
+    let havingStr = ''
+    if (req.params.having) {
+        havingStr = `having ${req.params.having}`
+    }
+
+    const query =
+        `select ${req.params.select}, yearquarter
+        from metrics
+        inner join \`time\`
+        on metrics.ccpost_id = \`time\`.ccpost_id
+        inner join classification
+        on metrics.ccpost_id = classification.ccpost_id
+        group by yearquarter
+        ${havingStr}
+        order by yearquarter`
+    connection.query(query,
+        (error, results) => {
+        if (error) {
+            console.log(error)
+            res.send('it does not work')}
+        else {
+            res.json(results)
+        }
+    })
+})
+
+app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:having?', (req, res) => {
+    console.log(req.params)
+    let havingStr = ''
+    if (req.params.having) {
+        havingStr = `having ${req.params.having}`
+    }
+    const query =
+        `select avg(metrics.total_interactions), ${req.params.select}
+        from metrics
+        inner join \`time\`
+        on metrics.ccpost_id = \`time\`.ccpost_id
+        inner join classification
+        on metrics.ccpost_id = classification.ccpost_id
+        where classification.gpt_ukraine_for_imod != "imod" 
+        group by ${req.params.select}
+        ${havingStr}
+        order by avg(metrics.total_interactions) desc;`
+    console.log(query)
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not  work')}
+            else {
+                res.json(results)
+            }
+
+        })
+})
+
+app.get('/getData/category/reactions', (req, res) => {
+    const query =
+        `SELECT 
+    sp.category,               
+    AVG(m.reactions) AS avg_reactions
+FROM 
+    metrics m
+JOIN 
+    sourcepop sp ON m.ccpageid = sp.ccpageid  
+GROUP BY
+    sp.category
+ORDER BY
+    avg_reactions DESC;
+    `
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+        })
+})
+
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

@@ -1,12 +1,18 @@
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
 body {
-    margin: 0px;
+    margin: 0;
+    font-family: 'Bebas Neue';
 }
 
 .main_title {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: 34rem;
+    margin-top: 15rem;
     font-size: 5rem;
 }
 
@@ -22,74 +28,97 @@ br {
 
 .main_container {
     background-image: url("https://uxmag.com/wp-content/uploads/2022/02/AdobeStock_489122106-1.jpeg");
-    height: 58rem;
+    height: 97vh;
     background-size: cover;
    background-position: center;
 }
 
+h2 {
+    font-size: xxx-large;
+    font-weight: bolder;
+}
+
+
+/* --  second container  -- */
 .second_container {
-    background-color: lightyellow;
-    height: 58rem;
+    background-color: #005bbb;
+    height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-
 }
-
-.second_graph_container {
-    width: 95%;
-    height: 90%;
-    background-color: slategray;
+.second_container>div {
+    border: lightgray 5px;
+    border-top: solid lightgray;
+    border-bottom: solid lightgray;
+    margin: 5%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 25px;
+    flex-direction: column;
+}
+.second_container>div>div {
+    display: flex;
+    justify-content: center;
+    height: 80%;
+}
+body > div.second_container > div > h2 {
+    margin-bottom: 0;
+    color: white;
+}
+.second_container>div>div>div {
+    display: flex;
+    margin: 2vw;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    width: 50%;
+}
+.second_container > div > div > div > canvas {
+    display: block;
 }
 
-.second_graph_one {
-    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: bottom;
-    width: 47.5%;
-    height: 97.5%;
-    margin-left: 0.7rem;
-    border-radius: 25px;
-
-}
-
-.second_graph_two {
-    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: bottom;
-    width: 47.5%;
-    height: 97.5%;
-    margin-right: 0.7rem;
-    border-radius: 25px;
-
-}
+/* --  third container  -- */
 
 .third_container {
-    background-color: lightblue;
-    height: 58rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #ffd500;
+    position: relative;
+    height: 100vh;
+}
 
+.third_container_color {
+    color: black;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 0 0 25px;
+}
+
+.third_container_color h2 {
+    font-size: 4em;
+}
+
+.third_container_color span {
+    color: #0382ab;
 }
 
 .third_graph_container {
-    width: 95%;
-    height: 90%;
-    background-color: slategray;
-    display: flex;
-    align-items: center;
-    border-radius: 25px;
-    justify-content: flex-start;
+    width: 50%;
+    height: 100vh;
+    background-image: url("third-page-picture.jpg");
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    position: absolute;
+    right: 0;
+    z-index: 1;
 }
 
-.third_graph_one {
+
+
+/* .third_graph_one {
     background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
     background-repeat: no-repeat;
     background-size: cover;
@@ -100,32 +129,56 @@ br {
     border-radius: 25px;
 
 }
+*/
 
+
+/* --  fourth container  -- */
 .fourth_container {
-    background-color: lightyellow;
-    height: 58rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fourth_graph_container {
-    width: 95%;
-    height: 90%;
-    background-color: slategray;
+    background-color: #005bbb;
+    height: 100vh;
     display: flex;
     align-items: center;
-    border-radius: 25px;
-    justify-content: flex-end
+}
+.fourth_container>div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 5vw;
+    border-bottom: lightgray solid 1vh;
+    border-top: lightgray solid 1vh;
+}
+.fourth_container>div>div {
+    width: 100%;
+}
+.fourth_container>div>div>h2 {
+    padding-top: 25%;
+    color: white;
+    font-size: 10vh;
+    margin: 0;
+}
+.fourth_container >div> div:nth-child(2) > div {
+    height: 80vh;
+    width: 100%;
 }
 
-.fourth_graph_one {
-    background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: right;
-    width: 70%;
-    margin-right: 0.7rem;
-    height: 97.5%;
-    border-radius: 25px;
+/* --  fifth container  -- */
+.fifth_container {
+    background-color: #ffd500;
+    height: 100vh;
+    display: flex;
+    flex-direction: row; /* Changed  from row-reverse to row */
+    align-items: center;
+}
+.fifth_container > div {
+    width: 50%;
+}
+.fifth_container > div > h2 {
+    padding-top: 20%; /* Changed from padding-bottom to padding-top */
+    font-size: x-large;
+    padding-left: 10%;
+    padding-right: 10%
+}
+.fifth_container > div:nth-child(2) > div > canvas {
+    height: 80vh;
+    width: 100%;
 }
