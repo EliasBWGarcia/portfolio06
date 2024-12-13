@@ -5,6 +5,7 @@
 
 body {
     margin: 0;
+    font-family: 'Bebas Neue';
 }
 
 .main_title {
@@ -111,11 +112,6 @@ h2 {
     z-index: 1;
 }
 
-.third_container_color {
-    background-color: #ffd500;
-    width: 100%;
-    z-index: -1;
-}
 
 /* .third_graph_one {
     background-image: url("https://cdn.shopify.com/s/files/1/0093/2298/7617/files/Screenshot_2023-05-28_at_2.47.53_pm.png?v=1685249278");
@@ -168,5 +164,6 @@ h2 {
     padding-right: 10%
 }
 .fifth_container > div:nth-child(2) > div > canvas {
-    height: 10vh;
+    height: 80vh;
+    width: 100%;
 }
