@@ -66,6 +66,38 @@ app.get('/test', (req, res) => {
     );
 });
 
+app.get('/getData/category/map', (req, res) => {
+    connection.query(
+        `SELECT 
+            sp.country,
+            COUNT(*) AS total_posts_for_ukraine,
+            SUM(m.total_interactions) AS total_interactions
+        FROM 
+            classification c
+        JOIN 
+            metrics m ON c.ccpost_id = m.ccpost_id
+        JOIN 
+            sourcepop sp ON m.ccpageid = sp.ccpageid
+        WHERE 
+            c.all_post_text LIKE '%Ukrain%'
+            AND sp.category = 'Political'
+            AND c.gpt_ukraine_for_imod LIKE 'for'
+        GROUP BY 
+            sp.country
+        ORDER BY 
+            total_posts_for_ukraine DESC;`,
+        (error, results) => {
+            if (error) {
+                console.error('Database query error:', error);
+                res.status(500).send('Database error');
+            } else {
+                console.log('API Results:', results);
+                res.json(results);
+            }
+        }
+    );
+});
+
 app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     // This endpoint gives you back data grouped by quarter, it is usefull for showing trends over time.
     // this endpoint has two params, on for the selected collumn you want to see, and on for an optional 'having' statement

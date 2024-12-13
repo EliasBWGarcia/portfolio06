@@ -13,8 +13,6 @@ function getLabelArrFromJson (json, key) {
     return labelArr
 }
 
-
-
 function getDatasetObjFromJson (keyNumber, json, label) { //!!important!! use 0 as first keyNumber
     // this function first adds the datasets-key if it does not exist,
     // then it pushes a dataset-object with the keyvalues from the keyNumber from the argument
