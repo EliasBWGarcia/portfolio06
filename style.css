@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: 34rem;
+    margin-top: 15rem;
     font-size: 5rem;
 }
 
@@ -40,15 +40,15 @@ h2 {
 
 /* --  second container  -- */
 .second_container {
-    background-color: #ffd500;
+    background-color: #005bbb;
     height: 100vh;
     display: flex;
     justify-content: center;
 }
 .second_container>div {
-    border: black 5px;
-    border-top: solid;
-    border-bottom: solid;
+    border: lightgray 5px;
+    border-top: solid lightgray;
+    border-bottom: solid lightgray;
     margin: 5%;
     width: 100%;
     display: flex;
@@ -59,12 +59,16 @@ h2 {
     justify-content: center;
     height: 80%;
 }
+body > div.second_container > div > h2 {
+    margin-bottom: 0;
+    color: white;
+}
 .second_container>div>div>div {
     display: flex;
     margin: 2vw;
     margin-top: 5vw;
     margin-bottom: 5vw;
-    width: 100%;
+    width: 50%;
 }
 .second_container > div > div > div > canvas {
     display: block;
@@ -132,16 +136,26 @@ h2 {
     background-color: #005bbb;
     height: 100vh;
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
 }
 .fourth_container>div {
-    width: 50%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 5vw;
+    border-bottom: lightgray solid 1vh;
+    border-top: lightgray solid 1vh;
 }
-.fourth_container>div>h2 {
-    padding-bottom: 70%;
+.fourth_container>div>div {
+    width: 100%;
 }
-.fourth_container > div:nth-child(2) > div {
+.fourth_container>div>div>h2 {
+    padding-top: 25%;
+    color: white;
+    font-size: 10vh;
+    margin: 0;
+}
+.fourth_container >div> div:nth-child(2) > div {
     height: 80vh;
     width: 100%;
 }

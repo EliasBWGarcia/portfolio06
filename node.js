@@ -14,6 +14,10 @@ const connection = mysql.createConnection({
     database: process.env.database
 });
 
+app.get('/hay', (req, res) => {
+    res.send("hello there")
+    console.log(req)
+})
 
 app.get('/test', (req, res) => {
     connection.query(
@@ -42,6 +46,7 @@ app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     if (req.params.having) {
         havingStr = `having ${req.params.having}`
     }
+
     const query =
         `select ${req.params.select}, yearquarter
         from metrics

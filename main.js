@@ -3,10 +3,17 @@ function getLabelArrFromJson (json, key) {
     //this function takes all the keyvalues with the specified key and returns them as an array
     const labelArr = []
     for (let obj of json) {
-        labelArr.push(obj[key]) //we are using "[]" and n ot obj.key because then it reads the variable and not literally "key"
+        //we bruteforce a replace function for each charector in string where we remove all the "_" with spaces, it is in a for-loop because otherwise it will only replace the first one
+        let labelStr = obj[key]
+        for (let i = 0; i < obj[key].length; i++) {
+            labelStr = labelStr.replace('_',' ')
+        }
+        labelArr.push(labelStr) //we are using "[]" and n ot obj.key because then it reads the variable and not literally "key"
     }
     return labelArr
 }
+
+
 
 function getDatasetObjFromJson (keyNumber, json, label) { //!!important!! use 0 as first keyNumber
     // this function first adds the datasets-key if it does not exist,
@@ -37,6 +44,8 @@ function addContainer2GraphStylingKeys (chartObj) {
     datasetObj.pointRadius = 0
     datasetObj.borderWidth = 10
     datasetObj.fill = true
+    datasetObj.backgroundColor = ['#b68e00']
+    datasetObj.borderColor = '#ffd500'
 
     chartObj.options = {
         responsive: true,
@@ -46,27 +55,35 @@ function addContainer2GraphStylingKeys (chartObj) {
                 position: 'top',
                 align: 'start',
                 labels: {
+                    color: 'white',
                     boxWidth: 0,
                     font: {
-                        size: 30
+                        size: 30,
+
                     }
                 }
             }
         },
         scales: {
             x: {
-                ticks: {maxTicksLimit: 5},
+                ticks: {
+                    maxTicksLimit: 5,
+                    color: 'lightgrey'
+                },
                 grid: {drawOnChartArea:false}
             },
             y: {
                 beginAtZero: false,
                 grid: {
                     drawOnChartArea:false
+                },
+                ticks: {
+                    color: 'lightgrey'
                 }
             }
         }
     }
-
+    //yellow color #ffd500
     //gradiant! youtube tutorial for doing it to other graphs: https://www.youtube.com/watch?v=6hgc9sPDiho
 }
 
@@ -114,10 +131,40 @@ function addContainer4GraphStylingKeys (chartObj) {
     chartObj.options = {
         indexAxis: 'y',
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 0,
+                    color: 'white'
+                }
+            }
+        },
+        scales: {
+            x: {
+                position: 'top',
+                ticks: {
+                    color: 'darkgrey',
+                    maxTicksLimit: 4
+                },
+                grid: {drawOnChartArea:false}
+            },
+            y: {
+                ticks: {
+                    color: 'white',
+                    mirror: true,
+                    z: 1,
+                    font: {
+                        size: 30
+                    }
+                }
+            }
+        }
     }
 
-    document.querySelector(".fourth_container > div:nth-child(2) > div > canvas").style.height = '80vh'
+    document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").style.height = '80vh'
 }
 
 
@@ -128,20 +175,20 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
             type: 'bar',
             data: {
                 labels: getLabelArrFromJson(jsondata, 'post_type'),
-                datasets: [getDatasetObjFromJson(0, jsondata, 'Average Interactions')]
+                datasets: [getDatasetObjFromJson(0, jsondata, '*Average Interactions Per Post Type')]
             }
         }
 
         addContainer4GraphStylingKeys(chartObj)
 
-        const chartDom = document.querySelector(".fourth_container > div:nth-child(2) > div > canvas").getContext('2d')
+        const chartDom = document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").getContext('2d')
         new Chart(chartDom, chartObj)
     })
 
 
 
 
-
+//  --  graph container 5  --
 fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
@@ -202,3 +249,5 @@ fetch('http://localhost:3000/getData/category/reactions')
     .catch(error => {
         console.error('Error fetching data:', error);
     });
+
+
