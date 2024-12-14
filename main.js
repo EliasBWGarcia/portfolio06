@@ -203,49 +203,69 @@ fetch('http://localhost:3000/getData/category/reactions')
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Average Interactions per Category',
+                    label: 'Average reactions',
                     data: values,
-                    backgroundColor: "#005bbb",
-                    tension: 0.3
+                    backgroundColor:"#005bbb",
+                    tension: 0.6
                 }]
             },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                size: 30
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            font: {
-                                size: 30
-                            },
-                        },
-                    },
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 24
-                            },
-                            color: '',
-                        }
-                    },
-                }
-            }
         });
     })
 
     document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
-    .catch(error => {
-        console.error('Error fetching data:', error);
+
+//  --  graph container 6  --
+fetch('http://localhost:3000/getData/textLength/reactions')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        const labels1 = data.map(item => item.text_length_range);
+        const values1 = data.map(item => item.avg_reactions_range);
+
+        console.log('Labels:', labels1, 'Values:', values1);
+
+        const ctx = document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels1,
+                datasets: [{
+                    label: 'Average reactions',
+                    data: values1,
+                    backgroundColor: values1.map((value, index) =>
+                        index === 3 ? "rgba(255, 213, 0, 1)" : "rgba(255, 213, 0, 0.7)" // Make the fourth pillar 100% opacity
+                    ),
+                    tension: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'x', // Change to horizontal
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 10
+                            }
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        })
     });
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
@@ -258,7 +278,7 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
         const labels = data.map(item => item[0]); // Accessing the word (first element of the array)
         const values = data.map(item => item[1]); // Accessing the count (second element of the array)
 
-
+document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
         console.log('Words:', labels, 'Counts:', values);
 
         // Create the new chart for top 15 words
@@ -280,13 +300,18 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
                     y: {
                         beginAtZero: true,
                         ticks: {
+                            color: 'lightgrey', // Change font color to light grey
                             font: {
                                 size: 14
                             }
                         }
                     },
                     x: {
+                        grid: {
+                            offset: true
+                        },
                         ticks: {
+                            color: 'lightgrey', // Change font color to light grey
                             font: {
                                 size: 14
                             }

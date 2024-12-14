@@ -209,6 +209,45 @@ ORDER BY
         })
 })
 
+app.get('/getData/textLength/reactions', (req, res) => {
+    const query =
+        `SELECT 
+    text_length_range,
+    avg_reactions_range
+FROM (
+\tSELECT 
+    CASE
+        WHEN LENGTH(c.all_post_text) BETWEEN 0 AND 500 THEN "0 to 500"
+        WHEN LENGTH(c.all_post_text) BETWEEN 501 AND 1000 THEN "501 to 1000"
+        WHEN LENGTH(c.all_post_text) BETWEEN 1001 AND 1500 THEN "1001 to 1500"
+        WHEN LENGTH(c.all_post_text) BETWEEN 1501 AND 2000 THEN "1501 to 2000"
+        WHEN LENGTH(c.all_post_text) BETWEEN 2001 AND 3000 THEN "2001 to 3000"
+        WHEN LENGTH(c.all_post_text) BETWEEN 3001 AND 5000 THEN "2501 to 5000"
+        else "> 5000"
+    END AS text_length_range,
+    COUNT(*) AS total_posts,
+    SUM(m.reactions) AS total_reactions,
+    AVG(m.reactions) AS avg_reactions_range
+FROM 
+    classification c
+JOIN 
+    metrics m ON c.ccpost_id = m.ccpost_id
+GROUP BY 
+    text_length_range
+    ) subquery;
+    `
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+        })
+})
+
+
 
 
 app.listen(port, () => {
