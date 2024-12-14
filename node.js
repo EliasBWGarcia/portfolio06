@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const {query} = require("express");
 
 const app = express();
 const port = 3000;
@@ -154,6 +155,32 @@ app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:havin
                 res.json(results)
             }
 
+        })
+})
+
+app.get('/getData/notAgainst/lengthInCategories', (req, res) => {
+    //this is mostly for testen and onetime-queries
+    const query = `select
+        case
+             when length(all_post_text) < 200 then "tiny"
+             when length(all_post_text) >= 200 and length(all_post_text) < 400 then "small"
+             when length(all_post_text) >= 400 and length(all_post_text) < 600 then "average"
+             when length(all_post_text) >= 600 and length(all_post_text) < 800 then "big"
+             when length(all_post_text) >= 800 then "huge"
+             else "this is not working correctly"
+             end as size,
+             count(*)
+         from classification
+         where gpt_ukraine_for_imod != "imod"
+         group by size;`
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
         })
 })
 

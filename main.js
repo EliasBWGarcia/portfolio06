@@ -3,7 +3,7 @@ function getLabelArrFromJson (json, key) {
     //this function takes all the keyvalues with the specified key and returns them as an array
     const labelArr = []
     for (let obj of json) {
-        //we bruteforce a replace function for each charector in string where we remove all the "_" with spaces, it is in a for-loop because otherwise it will only replace the first one
+        //we bruteforce a replace function for each charector in string where we replace all the "_" with spaces, it is in a for-loop because otherwise it will only replace the first one
         let labelStr = obj[key]
         for (let i = 0; i < obj[key].length; i++) {
             labelStr = labelStr.replace('_',' ')

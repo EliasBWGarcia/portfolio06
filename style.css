@@ -183,6 +183,7 @@ body > div.second_container > div > h2 {
     flex-direction: row-reverse;
     align-items: center;
     margin: 5vw;
+    padding-top: 5vh;
     border-bottom: lightgray solid 1vh;
     border-top: lightgray solid 1vh;
 }
