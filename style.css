@@ -78,7 +78,8 @@ body > div.second_container > div > h2 {
 /* map-chart */
 
 .map_container {
-
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
 }
 
 .map_page {
@@ -87,6 +88,12 @@ body > div.second_container > div > h2 {
     justify-content: center;
     background-color: #ffd500;
     color: white;
+}
+
+.map_tekst_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 #map {
@@ -102,7 +109,9 @@ body > div.second_container > div > h2 {
     padding: 5px;
     pointer-events: none;
     font-size: 14px;
-    display: none;}
+    display: none;
+}
+
 
 
 /* --  third container  -- */
