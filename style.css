@@ -200,6 +200,31 @@ body > div.second_container > div > h2 {
     width: 100%;
 }
 
+.sixth_container {
+    background-color: #005bbb;
+    height: 100vh;
+    display: flex;
+    flex-direction: row-reverse; /* Changed  from row-reverse to row */
+    align-items: center;
+}
+.sixth_container > div {
+    width: 50%;
+
+}
+.sixth_container > div > h2 {
+    padding-top: 20%; /* Changed from padding-bottom to padding-top */
+    font-size: 10vh;
+    font-weight: bolder;
+
+    color: white;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.sixth_container > div:nth-child(2) > div > canvas {
+    height: 80vh;
+    width: 100%;
+}
+
 /* --  fifth container  -- */
 .fifth_container {
     background-color: #ffd500;
@@ -213,7 +238,9 @@ body > div.second_container > div > h2 {
 }
 .fifth_container > div > h2 {
     padding-top: 20%; /* Changed from padding-bottom to padding-top */
-    font-size: x-large;
+    font-size: xxx-large;
+    font-weight: bolder;
+    color: white;
     padding-left: 10%;
     padding-right: 10%
 }
