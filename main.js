@@ -202,12 +202,22 @@ fetch('http://localhost:3000/getData/category/reactions')
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Average reactions',
+                    label: '*average reaction grouped by poster category',
                     data: values,
                     backgroundColor:"#005bbb",
                     tension: 0.6
                 }]
             },
+            options: {
+                plugins: {
+                    legend: {
+                        align: 'end',
+                        labels: {
+                            boxWidth: 0
+                        }
+                    }
+                }
+            }
         });
     })
 
@@ -264,7 +274,6 @@ function addStylingToHashtagChart (chartObj) {
     }
 }
 
-//this is a commment
 
 async function makeHashtagChart () {
     const chartData = []
@@ -316,7 +325,7 @@ fetch('http://localhost:3000/getData/textLength/reactions')
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Average Reactions',
+                    label: '*average reactions grouped by number of characters in post',
                     data: values,
                     backgroundColor: values.map((value, index) =>
                         index === 3 ? "rgba(255, 213, 0, 1)" : "rgba(255, 213, 0, 0.7)" // Fourth bar highlighted
@@ -327,6 +336,7 @@ fetch('http://localhost:3000/getData/textLength/reactions')
             options: {
                 plugins: {
                     legend: {
+                        align: 'start',
                         labels: {
                             color: 'white',
                             boxWidth: 0
@@ -391,7 +401,7 @@ document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Top 10 Words',
+                    label: '*selected words ranked by popularity',
                     data: values,
                     backgroundColor: values.map((value, index) =>
                         index === 0 ? "rgba(0, 91, 187, 1)" :index === 7 ? "rgba(0, 91, 187, 1)": "rgba(0, 91, 187, 0.7)"), // Make the fourth pillar 100% opacity
@@ -428,7 +438,9 @@ document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").
                 plugins: {
                     legend: {
                         position: 'top',
+                        align: 'end',
                         labels: {
+                            boxWidth: 0,
                             font: {
                                 size: 16
                             }
