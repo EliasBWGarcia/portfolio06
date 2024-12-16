@@ -65,7 +65,7 @@ function addContainer2GraphStylingKeys (chartObj) {
         scales: {
             x: {
                 ticks: {
-                    maxTicksLimit: 5,
+                    maxTicksLimit: 2,
                     color: 'lightgrey'
                 },
                 grid: {drawOnChartArea:false}
@@ -76,7 +76,8 @@ function addContainer2GraphStylingKeys (chartObj) {
                     drawOnChartArea:false
                 },
                 ticks: {
-                    color: 'lightgrey'
+                    color: 'lightgrey',
+
                 }
             }
         }
@@ -151,7 +152,7 @@ function addContainer4GraphStylingKeys (chartObj) {
             },
             y: {
                 ticks: {
-                    color: 'white',
+                    color: 'black',
                     mirror: true,
                     z: 1,
                     font: {

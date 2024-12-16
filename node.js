@@ -325,7 +325,9 @@ GROUP BY
         })
 })
 
+app.get('/getData/notAgainst/useing"#"', (req, res) => {
 
+})
 
 
 app.listen(port, () => {
