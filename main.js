@@ -215,6 +215,13 @@ fetch('http://localhost:3000/getData/category/reactions')
 
     document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
+//  --  hashtag container  --
+
+fetch('http://localhost:3000/getData/notAgainst/useingHashtag=true')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+    })
 
 //  --  graph container 6  --
 fetch('http://localhost:3000/getData/textLength/reactions')
@@ -351,3 +358,4 @@ document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").
         console.error('Error fetching data:', error);
         alert('Failed to load data for the top words chart.');
     });
+
