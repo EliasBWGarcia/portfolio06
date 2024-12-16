@@ -331,12 +331,12 @@ body > div.second_container > div > h2 {
 
 /*Conclusion*/
 .conclusion_container {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background-color: #EED202;
+    background-color: #ffd500;
     position: relative;
     text-align: center;
 }
@@ -359,7 +359,7 @@ body > div.second_container > div > h2 {
     list-style: none;
     padding: 0;
     max-width: 100%;
-    
+
 }
 
 .conclusion_list li {
@@ -369,8 +369,7 @@ body > div.second_container > div > h2 {
     border-radius: 5px;
     color: white;
     font-size: 3rem;
-    word-wrap: break-word; /* Tvinger ord til at bryde ved overflow */
-    overflow-wrap: break-word; /* Alternativ til nyere browsere */  
+ 
 }
 
 footer {
