@@ -6,26 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function drawD3Map() {
-    console.log("Drawing map...");
-
     try {
-        // Fetch data from your API
         const response = await fetch('http://localhost:3000/getData/category/map');
         const results = await response.json();
-        console.log("Data fetched from API:", results);
 
         const data = results.map(d => ({
             country: d.country,
             value: +d.total_posts_for_ukraine,
             interactions: +d.total_interactions
         }));
-        console.log("Processed data:", data);
 
-        // Load world GeoJSON
         const geoResponse = await fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson');
         const world = await geoResponse.json();
 
-        // Create a mapping from your data countries to ADMIN names
         const countryMapping = {
             Germany: 'Germany',
             France: 'France',
@@ -35,7 +28,6 @@ async function drawD3Map() {
             Wales: 'United Kingdom'
         };
 
-        // Show all countries because there's no CONTINENT info in this dataset
         const features = world.features;
 
         // Merge data into GeoJSON
@@ -45,7 +37,6 @@ async function drawD3Map() {
             f.properties.interactions = matched.interactions;
         }
 
-        // Compute min/max values
         const values = features.map(f => f.properties.value);
         const minValue = d3.min(values);
         const maxValue = d3.max(values);
@@ -61,8 +52,6 @@ async function drawD3Map() {
         const height = mapDiv.clientHeight;
         console.log("Map dimensions:", width, height);
 
-        // Instead of fitSize, manually center and scale to Europe
-        // Europe roughly: center on [10, 50], scale ~500
         const projection = d3.geoMercator()
             .center([10, 50])
             .scale(500)
@@ -100,8 +89,6 @@ async function drawD3Map() {
             .on("mouseout", () => {
                 tooltip.style("display", "none");
             });
-
-        console.log("Map rendered. All countries shown; focusing on Europe's area.");
     } catch (error) {
         console.error('Error fetching data or rendering map:', error);
     }

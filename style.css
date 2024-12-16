@@ -16,6 +16,8 @@ body {
     font-size: 5rem;
 }
 
+
+
 br {
     display: block;
 }
@@ -84,7 +86,7 @@ body > div.second_container > div > h2 {
     height: 50vh;
     display: flex;
     justify-content: center;
-    background-color: #ffd500;
+    background-color: #EED202;
     color: white;
 }
 
@@ -145,7 +147,7 @@ body > div.second_container > div > h2 {
 }
 
 .third_container_color span {
-    color: #fbca02;
+    color: #EED202;
 }
 
 .third_graph_container {
@@ -165,7 +167,7 @@ body > div.second_container > div > h2 {
 
 
 .top_word_container {
-    background-color: #ffd500;
+    background-color: #EED202;
     height: 100vh;
     display: flex;
     flex-direction: row; /* Changed from row-reverse to row */
@@ -276,7 +278,7 @@ body > div.second_container > div > h2 {
 
 
 .fifth_container {
-    background-color: #ffd500;
+    background-color: #EED202;
     height: 100vh;
     display: flex;
     flex-direction: row; /* Changed  from row-reverse to row */
@@ -325,5 +327,61 @@ body > div.second_container > div > h2 {
 .sixth_container > div:nth-child(2) > div > canvas {
     height: 80vh;
     width: 100%;
+}
+
+/*Conclusion*/
+.conclusion_container {
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: #EED202;
+    position: relative;
+    text-align: center;
+}
+
+.conclusion_header h2 {
+    color: #005bbb;
+    font-size: 5rem;
+    margin-bottom: 2vh;
+}
+
+.conclusion_list {
+    width: 80vw;
+}
+
+.conclusion_list p {
+    font-size: 2rem;
+}
+
+.conclusion_list ul {
+    list-style: none;
+    padding: 0;
+    max-width: 100%;
+    
+}
+
+.conclusion_list li {
+    background-color: #005bbb;
+    margin: 6.15vh;
+    padding: 3vh;
+    border-radius: 5px;
+    color: white;
+    font-size: 3rem;
+    word-wrap: break-word; /* Tvinger ord til at bryde ved overflow */
+    overflow-wrap: break-word; /* Alternativ til nyere browsere */  
+}
+
+footer {
+    background: #e0e0e0;
+    color: #333;
+    text-align: center;
+    font-size: 1rem;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
