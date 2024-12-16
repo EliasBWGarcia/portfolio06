@@ -77,10 +77,6 @@ body > div.second_container > div > h2 {
 
 /* map-chart */
 
-.map_container {
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-}
 
 .map_page {
     height: 50vh;
@@ -92,9 +88,16 @@ body > div.second_container > div > h2 {
 
 .map_tekst_container {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
+    flex-direction: column;
+    margin: 5%;
+    color: #000;
 }
+
+.map_tekst {
+    font-size: 20px;
+}
+
 
 #map {
     width: 100%;
