@@ -165,7 +165,7 @@ function addContainer4GraphStylingKeys (chartObj) {
 }
 
 
-fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100')
+fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100;limit=5')
     .then(response => response.json())
     .then(jsondata => {
         const chartObj ={
@@ -190,8 +190,10 @@ fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
 
+
         const labels = data.map(item => item.category);
         const values = data.map(item => item.avg_reactions);
+
 
 
         const ctx = document.getElementById('wordChartContainer5').getContext('2d');
@@ -211,6 +213,36 @@ fetch('http://localhost:3000/getData/category/reactions')
 
     document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
+//  --  hashtag container  --
+
+
+async function makeHashtagChart () {
+    const chartData = []
+    await fetch('http://localhost:3000/getData/notAgainst/useingHashtag=true')
+        .then(response => response.json())
+        .then(data => {
+            chartData.push(data[0])
+        })
+    await fetch('http://localhost:3000/getData/notAgainst/useingHashtag=false')
+        .then(response => response.json())
+        .then(data => {
+            chartData.push(data[0])
+        })
+    const chartObj ={
+        type: 'bar',
+        data: {
+            labels: ['with #','without #'],
+            datasets: [{
+                data: [chartData[0].avgInteractions, chartData[1].avgInteractions]
+            }]
+        }
+    }
+    const DOMCanvas = document.querySelector('.hashtag_container > div > div:nth-child(2) > div > canvas')
+    new Chart(DOMCanvas, chartObj)
+}
+
+makeHashtagChart()
+
 
 //  --  graph container 6  --
 fetch('http://localhost:3000/getData/textLength/reactions')
@@ -220,8 +252,10 @@ fetch('http://localhost:3000/getData/textLength/reactions')
         canvas.style.height = "80vh";
         canvas.style.width = "100vw";
 
+
         const labels = data.map(item => item.text_length_range);
         const values = data.map(item => item.avg_reactions_range);
+
 
 
 
@@ -283,13 +317,15 @@ fetch('http://localhost:3000/getData/textLength/reactions')
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
     .then(data => {
-        console.log('Top Words Data:', data);
+
 
         // Assuming data is in the form of an array of objects like:
         // [{ word: 'example', count: 10 }, {...}, ...]
 
         const labels = data.map(item => item[0]); // Accessing the word (first element of the array)
         const values = data.map(item => item[1]); // Accessing the count (second element of the array)
+
+document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
         document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
@@ -358,3 +394,9 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
             }
         });
     })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        alert('Failed to load data for the top words chart.');
+    });
+
+
