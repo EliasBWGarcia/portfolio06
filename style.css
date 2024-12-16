@@ -315,11 +315,16 @@ body > div.second_container > div > h2 {
 
 .conclusion_header h2 {
     color: #005bbb;
-    margin-bottom: 1rem;
+    font-size: 5rem;
+    margin-bottom: 2vh;
 }
 
 .conclusion_list {
-    width: 500px;
+    width: 80vw;
+}
+
+.conclusion_list p {
+    font-size: 2rem;
 }
 
 .conclusion_list ul {
@@ -330,12 +335,12 @@ body > div.second_container > div > h2 {
 }
 
 .conclusion_list li {
-    background-color: #fbca02;
-    margin: 10px 0;
-    padding: 10px;
+    background-color: #005bbb;
+    margin: 6.15vh;
+    padding: 3vh;
     border-radius: 5px;
-    color: #000;
-    font-size: 1.5rem;
+    color: white;
+    font-size: 3rem;
     word-wrap: break-word; /* Tvinger ord til at bryde ved overflow */
     overflow-wrap: break-word; /* Alternativ til nyere browsere */  
 }
