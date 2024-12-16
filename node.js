@@ -23,12 +23,12 @@ const connection = mysql.createConnection({
 const synonymMapping = {
     'guerre': 'krig', // Both mean "war"
     'krieg': 'krig',
-    'russische': 'russer',
-    'russie': 'russer',
+    'russische': 'rusland',
+    'russie': 'rusland',
     'russischen': 'russer',
     'ukrainische': 'ukraine',
     'ukraine': 'ukraine',
-    'russe': 'russer',
+    'russe': 'rusland',
     'politiek': 'politik',
     'politik': 'politik',
     'germany': 'germany',
@@ -39,10 +39,10 @@ const synonymMapping = {
     'europe': 'europa',
     'europa': 'europa',
     'ukrainischen': 'ukraine',
-    'russland': 'russer',
+    'russland': 'rusland',
     'präsident': 'putin',
     'russlands': 'rusland',
-    'russia': 'russer',
+    'russia': 'rusland',
     'ukrainske': 'ukraine',
     'angriffskrieg': 'invasion',
     'président': 'putin',
@@ -63,7 +63,7 @@ const synonymMapping = {
     'international': 'verdenen',
     'deutsche': 'germany',
     'unterstützen': 'støtte',
-    'russes': 'russer',
+    'russes': 'rusland',
     'krieges': 'krig',
     'gemeinsam': 'nato',
     'ukrainer': 'ukraine',
@@ -90,7 +90,7 @@ const normalizeWord = (word) => {
 // Additional words to ignore after normalization (e.g., irrelevant terms, common names, etc.)
 const ignoreList = new Set([
     'https', 'www', 'com', 'de', 'fr', 'uk', 'eu', 'org', 'land', 'situation', // Examples of common, irrelevant terms
-    'germany', 'france', 'rusland', 'frieden', 'danmark', 'krig', 'lage' // Example of specific terms you may want to ignore
+    'germany', 'france', 'frieden', 'danmark', 'lage' // Example of specific terms you may want to ignore
 ]);
 
 app.get('/hay', (req, res) => {
@@ -116,7 +116,7 @@ app.get('/word-count', (req, res) => {
         const wordCounts = _.countBy(finalWords);
         const sortedWordCounts = Object.entries(wordCounts)
             .sort((a, b) => b[1] - a[1])
-            .slice(0, 15);
+            .slice(0, 10);
 
         // Send the top 15 word counts to the frontend
         res.json(sortedWordCounts);

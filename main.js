@@ -288,7 +288,7 @@ document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").sty
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Top 15 Words',
+                    label: 'Top 10 Words',
                     data: values,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Adjust color if needed
                     borderColor: 'rgba(54, 162, 235, 1)',
