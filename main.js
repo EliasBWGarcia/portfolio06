@@ -264,6 +264,8 @@ function addStylingToHashtagChart (chartObj) {
     }
 }
 
+//this is a commment
+
 async function makeHashtagChart () {
     const chartData = []
     await fetch('http://localhost:3000/getData/notAgainst/useingHashtag=true')
