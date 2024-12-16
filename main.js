@@ -216,11 +216,50 @@ fetch('http://localhost:3000/getData/category/reactions')
 //  --  hashtag container  --
 
 function addStylingToHashtagChart (chartObj) {
+    const datasetObj = chartObj.data.datasets[0]
+    datasetObj.borderColor = ['#005bbb']
+    datasetObj.backgroundColor = ['#005bbb']
+    datasetObj.label = '*avgerage interations grouped by incultion of "#"'
     chartObj.options = {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
+            y: {
+                position: 'right',
+                maxTicksLimit: 2,
+                grid: {drawOnChartArea: false}
+            },
+            x: {
+                ticks: {
+                    mirror: false,
+                    padding: 0,
+                    align: 'center',
+                    color: 'black',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                    }
+                },
+                grid: {drawOnChartArea: false}
+            }
+        },
+        plugins: {
+            legend: {
+                align: 'end',
+                labels: {
+                    color: 'lightgray',
+                    boxWidth: 0,
+                    font: {
 
+                    }
+                }
+            }
+        },
+        elements: {
+            bar: {
+                backgroundColor: 'rgba(255, 213, 0, 0.8)', // Make bars slightly transparent
+                borderWidth: 0,
+            }
         }
     }
 }
@@ -240,7 +279,7 @@ async function makeHashtagChart () {
     const chartObj ={
         type: 'bar',
         data: {
-            labels: ['with #','without #'],
+            labels: ['posts including hashtags','posts without hashtags'],
             datasets: [{
                 data: [chartData[0].avgInteractions, chartData[1].avgInteractions]
             }]

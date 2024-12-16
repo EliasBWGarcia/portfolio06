@@ -250,6 +250,7 @@ body > div.second_container > div > h2 {
     height: 100vh;
     display: flex;
     justify-content: center;
+    background-color: #ffd500;
 }
 .hashtag_container > div {
     display: flex;
