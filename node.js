@@ -206,11 +206,14 @@ app.get('/getData/byQuarter/select=:select;having=:having?',(req, res) => {
     })
 })
 
-app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:having?', (req, res) => {
-    console.log(req.params)
+app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:having?;limit=:limit?', (req, res) => {
     let havingStr = ''
     if (req.params.having) {
         havingStr = `having ${req.params.having}`
+    }
+    let limitStr = ''
+    if (req.params.limit) {
+        limitStr = `limit ${(req.params.limit)}`
     }
     const query =
         `select avg(metrics.total_interactions), ${req.params.select}
@@ -222,7 +225,9 @@ app.get('/getData/notAgainst/byAvgTotalInteractions/select=:select;having=:havin
         where classification.gpt_ukraine_for_imod != "imod" 
         group by ${req.params.select}
         ${havingStr}
-        order by avg(metrics.total_interactions) desc;`
+        order by avg(metrics.total_interactions) desc
+        ${limitStr}
+        ;`
     console.log(query)
     connection.query(query,
         (error, results) => {
@@ -332,7 +337,7 @@ app.get('/getData/notAgainst/useingHashtag=:boolian', (req, res) => {
         whereStr = "and REGEXP_LIKE(all_post_text, '#')"
     }
     const query =
-        `select avg(total_interactions)
+        `select avg(total_interactions) as avgInteractions
         from classification
         inner join metrics
         on metrics.ccpost_id = classification.ccpost_id

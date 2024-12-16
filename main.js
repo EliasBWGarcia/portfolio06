@@ -167,7 +167,7 @@ function addContainer4GraphStylingKeys (chartObj) {
 }
 
 
-fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100')
+fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=metrics.post_type;having=avg(metrics.total_interactions)>100;limit=5')
     .then(response => response.json())
     .then(jsondata => {
         const chartObj ={
@@ -191,12 +191,12 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
 fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+
 
         const labels = data.map(item => item.category);
         const values = data.map(item => item.avg_reactions);
 
-        console.log('Labels:', labels, 'Values:', values);
+
 
         const ctx = document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").getContext('2d');
         new Chart(ctx, {
@@ -230,7 +230,17 @@ async function makeHashtagChart () {
         .then(data => {
             chartData.push(data[0])
         })
-    console.log(chartData)
+    const chartObj ={
+        type: 'bar',
+        data: {
+            labels: ['with #','without #'],
+            datasets: [{
+                data: [chartData[0].avgInteractions, chartData[1].avgInteractions]
+            }]
+        }
+    }
+    const DOMCanvas = document.querySelector('.hashtag_container > div > div:nth-child(2) > div > canvas')
+    new Chart(DOMCanvas, chartObj)
 }
 
 makeHashtagChart()
@@ -240,12 +250,12 @@ makeHashtagChart()
 fetch('http://localhost:3000/getData/textLength/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+
 
         const labels1 = data.map(item => item.text_length_range);
         const values1 = data.map(item => item.avg_reactions_range);
 
-        console.log('Labels:', labels1, 'Values:', values1);
+
 
         const ctx = document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").getContext('2d');
         new Chart(ctx, {
@@ -291,7 +301,7 @@ fetch('http://localhost:3000/getData/textLength/reactions')
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
     .then(data => {
-        console.log('Top Words Data:', data);
+
 
         // Assuming data is in the form of an array of objects like:
         // [{ word: 'example', count: 10 }, {...}, ...]
@@ -300,7 +310,7 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
         const values = data.map(item => item[1]); // Accessing the count (second element of the array)
 
 document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
-        console.log('Words:', labels, 'Counts:', values);
+
 
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.width = "100vw";
