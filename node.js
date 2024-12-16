@@ -158,9 +158,7 @@ app.get('/getData/category/map', (req, res) => {
         JOIN 
             sourcepop sp ON m.ccpageid = sp.ccpageid
         WHERE 
-            c.all_post_text LIKE '%Ukrain%'
-            AND sp.category = 'Political'
-            AND c.gpt_ukraine_for_imod LIKE 'for'
+            sp.category = 'Political'
         GROUP BY 
             sp.country
         ORDER BY 

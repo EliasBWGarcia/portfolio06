@@ -394,9 +394,5 @@ document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").
             }
         });
     })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        alert('Failed to load data for the top words chart.');
-    });
 
 

@@ -16,6 +16,8 @@ body {
     font-size: 5rem;
 }
 
+
+
 br {
     display: block;
 }
@@ -297,5 +299,59 @@ body > div.second_container > div > h2 {
 .sixth_container > div:nth-child(2) > div > canvas {
     height: 80vh;
     width: 100%;
+}
+
+/*Conclusion*/
+.conclusion_container {
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffd500;
+    position: relative;
+    text-align: center;
+}
+
+.conclusion_header h2 {
+    font-size: 3rem;
+    color: #005bbb;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.conclusion_list {
+    width: 300px;
+}
+
+.conclusion_list ul {
+    list-style: none;
+    padding: 0;
+    max-width: 100%;
+}
+
+.conclusion_list li {
+    background-color: #fbca02;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: bold;
+    word-wrap: break-word; /* Tvinger ord til at bryde ved overflow */
+    overflow-wrap: break-word; /* Alternativ til nyere browsere */  
+}
+
+footer {
+    background: #e0e0e0;
+    color: #333;
+    text-align: center;
+    font-size: 1rem;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
