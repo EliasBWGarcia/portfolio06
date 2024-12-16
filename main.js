@@ -152,7 +152,7 @@ function addContainer4GraphStylingKeys (chartObj) {
             },
             y: {
                 ticks: {
-                    color: 'black',
+                    color: 'white',
                     mirror: true,
                     z: 1,
                     font: {
@@ -257,10 +257,10 @@ function addStylingToHashtagChart (chartObj) {
             legend: {
                 align: 'end',
                 labels: {
-                    color: 'lightgray',
+                    color: 'grey',
                     boxWidth: 0,
                     font: {
-
+                        size: 15
                     }
                 }
             }
