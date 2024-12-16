@@ -121,11 +121,11 @@ fetch('http://localhost:3000/getData/byQuarter/select=avg(metrics.total_interact
 
 
 //  --  graph container 4  --
+document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").style.height = '80vh'
 function addContainer4GraphStylingKeys (chartObj) {
     const datasetObj = chartObj.data.datasets[0]
     datasetObj.borderColor = ['#ffd500']
     datasetObj.backgroundColor = ['#ffd500']
-
 
     chartObj.options = {
         indexAxis: 'y',
@@ -162,8 +162,6 @@ function addContainer4GraphStylingKeys (chartObj) {
             }
         }
     }
-
-    document.querySelector(".fourth_container > div > div:nth-child(2) > div > canvas").style.height = '80vh'
 }
 
 
@@ -191,14 +189,12 @@ fetch('http://localhost:3000/getData/notAgainst/byAvgTotalInteractions/select=me
 fetch('http://localhost:3000/getData/category/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
 
         const labels = data.map(item => item.category);
         const values = data.map(item => item.avg_reactions);
 
-        console.log('Labels:', labels, 'Values:', values);
 
-        const ctx = document.querySelector(".fifth_container > div:nth-child(2) > div > canvas").getContext('2d');
+        const ctx = document.getElementById('wordChartContainer5').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
@@ -220,45 +216,57 @@ fetch('http://localhost:3000/getData/category/reactions')
 fetch('http://localhost:3000/getData/textLength/reactions')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        const canvas = document.querySelector(".top_word_container > div:nth-child(2) > div > canvas");
+        canvas.style.height = "80vh";
+        canvas.style.width = "100vw";
 
-        const labels1 = data.map(item => item.text_length_range);
-        const values1 = data.map(item => item.avg_reactions_range);
+        const labels = data.map(item => item.text_length_range);
+        const values = data.map(item => item.avg_reactions_range);
 
-        console.log('Labels:', labels1, 'Values:', values1);
 
-        const ctx = document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").getContext('2d');
+
+        const ctx = document.getElementById('wordChartContainer6').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels1,
+                labels: labels,
                 datasets: [{
-                    label: 'Average reactions',
-                    data: values1,
-                    backgroundColor: values1.map((value, index) =>
-                        index === 3 ? "rgba(255, 213, 0, 1)" : "rgba(255, 213, 0, 0.7)" // Make the fourth pillar 100% opacity
+                    label: 'Average Reactions',
+                    data: values,
+                    backgroundColor: values.map((value, index) =>
+                        index === 3 ? "rgba(255, 213, 0, 1)" : "rgba(255, 213, 0, 0.7)" // Fourth bar highlighted
                     ),
                     tension: 0.6
                 }]
             },
             options: {
-                indexAxis: 'x', // Change to horizontal
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            boxWidth: 0
+                        }
+                    }
+                },
+                indexAxis: 'x', // Horizontal bar chart
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true,
                         ticks: {
+                            color: 'lightgrey',
                             font: {
                                 size: 10
                             }
                         },
                         grid: {
-                            drawOnChartArea: false
+                            drawOnChartArea: false // Disable gridlines
                         }
                     },
                     x: {
-                        ticks: {
+                        ticks: { //
+                            color: 'white', // Font color for x-axis
                             font: {
                                 size: 10
                             }
@@ -266,8 +274,12 @@ fetch('http://localhost:3000/getData/textLength/reactions')
                     }
                 }
             }
-        })
-    });
+        });
+    })
+
+
+// -------------------------------- Chart ______ ------------------------ //
+
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
     .then(data => {
@@ -279,8 +291,7 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
         const labels = data.map(item => item[0]); // Accessing the word (first element of the array)
         const values = data.map(item => item[1]); // Accessing the count (second element of the array)
 
-document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
-        console.log('Words:', labels, 'Counts:', values);
+        document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
 
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.width = "100vw";
@@ -347,7 +358,3 @@ document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").
             }
         });
     })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        alert('Failed to load data for the top words chart.');
-    });
