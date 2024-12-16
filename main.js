@@ -278,8 +278,12 @@ fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
         const labels = data.map(item => item[0]); // Accessing the word (first element of the array)
         const values = data.map(item => item[1]); // Accessing the count (second element of the array)
 
-document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").style.height = "80vh"
+document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.height = "80vh"
         console.log('Words:', labels, 'Counts:', values);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector(".top_word_container > div:nth-child(2) > div > canvas").style.width = "100vw";
+        });
 
         // Create the new chart for top 15 words
         const ctx = document.getElementById('wordChart').getContext('2d');
@@ -290,17 +294,20 @@ document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").sty
                 datasets: [{
                     label: 'Top 10 Words',
                     data: values,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Adjust color if needed
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+                    backgroundColor: values.map((value, index) =>
+                        index === 0 ? "rgba(0, 91, 187, 1)" :index === 7 ? "rgba(0, 91, 187, 1)": "rgba(0, 91, 187, 0.7)"), // Make the fourth pillar 100% opacity
+                    tension: 0.6
                 }]
             },
             options: {
                 scales: {
                     y: {
+                        grid:{
+                            drawOnChartArea: false,
+                        },
                         beginAtZero: true,
                         ticks: {
-                            color: 'lightgrey', // Change font color to light grey
+                            color: 'white', // Change font color to light grey
                             font: {
                                 size: 14
                             }
@@ -308,10 +315,10 @@ document.querySelector(".sixth_container > div:nth-child(2) > div > canvas").sty
                     },
                     x: {
                         grid: {
-                            offset: true
+                            offset: true,
                         },
                         ticks: {
-                            color: 'lightgrey', // Change font color to light grey
+                            color: 'white', // Change font color to light grey
                             font: {
                                 size: 14
                             }
