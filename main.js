@@ -152,7 +152,7 @@ function addContainer4GraphStylingKeys (chartObj) {
             },
             y: {
                 ticks: {
-                    color: 'white',
+                    color: 'black',
                     mirror: true,
                     z: 1,
                     font: {
