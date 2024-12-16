@@ -217,11 +217,24 @@ fetch('http://localhost:3000/getData/category/reactions')
 
 //  --  hashtag container  --
 
-fetch('http://localhost:3000/getData/notAgainst/useingHashtag=true')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-    })
+
+async function makeHashtagChart () {
+    const chartData = []
+    await fetch('http://localhost:3000/getData/notAgainst/useingHashtag=true')
+        .then(response => response.json())
+        .then(data => {
+            chartData.push(data[0])
+        })
+    await fetch('http://localhost:3000/getData/notAgainst/useingHashtag=false')
+        .then(response => response.json())
+        .then(data => {
+            chartData.push(data[0])
+        })
+    console.log(chartData)
+}
+
+makeHashtagChart()
+
 
 //  --  graph container 6  --
 fetch('http://localhost:3000/getData/textLength/reactions')
