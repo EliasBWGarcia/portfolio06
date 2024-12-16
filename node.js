@@ -325,7 +325,28 @@ GROUP BY
         })
 })
 
-app.get('/getData/notAgainst/useing"#"', (req, res) => {
+app.get('/getData/notAgainst/useingHashtag=:boolian', (req, res) => {
+    console.log(req.params.boolian)
+    let whereStr = ''
+    if (req.params.boolian === 'true') {
+        whereStr = "and REGEXP_LIKE(all_post_text, '#')"
+    }
+    const query =
+        `select avg(total_interactions)
+        from classification
+        inner join metrics
+        on metrics.ccpost_id = classification.ccpost_id
+        where gpt_ukraine_for_imod != "imod" ${whereStr};
+        `
+    connection.query(query,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                res.send('it does not work')}
+            else {
+                res.json(results)
+            }
+        })
 
 })
 
