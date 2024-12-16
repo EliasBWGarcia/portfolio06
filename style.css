@@ -236,6 +236,31 @@ body > div.second_container > div > h2 {
     width: 100%;
 }
 
+/* --  hashtag container  -- */
+.hashtag_container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.hashtag_container > div {
+    display: flex;
+    margin: 5vw;
+    border-bottom: lightgray solid 1vh;
+    border-top: lightgray solid 1vh;
+}
+.hashtag_container > div > div:first-child {
+    width: 40%;
+    margin-right: -25%;
+}
+.hashtag_container > div > div:nth-child(2) {
+    width: 80%;
+}
+.hashtag_container > div > div:nth-child(2) > div {
+    width: 100%;
+    height: 100%;
+}
+
+
 /* --  fifth container  -- */
 .fifth_container {
     background-color: #ffd500;

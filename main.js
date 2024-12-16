@@ -217,6 +217,15 @@ fetch('http://localhost:3000/getData/category/reactions')
 
 //  --  hashtag container  --
 
+function addStylingToHashtagChart (chartObj) {
+    chartObj.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+
+        }
+    }
+}
 
 async function makeHashtagChart () {
     const chartData = []
@@ -239,6 +248,7 @@ async function makeHashtagChart () {
             }]
         }
     }
+    addStylingToHashtagChart(chartObj)
     const DOMCanvas = document.querySelector('.hashtag_container > div > div:nth-child(2) > div > canvas')
     new Chart(DOMCanvas, chartObj)
 }
