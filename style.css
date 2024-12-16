@@ -20,6 +20,8 @@ br {
     display: block;
 }
 
+/* -----------------------  front_page_text_container  -------------- */
+
 .front_page_text_container {
     display: flex;
     flex-direction: column;
@@ -38,8 +40,7 @@ h2 {
     font-weight: bolder;
 }
 
-
-/* --  second container  -- */
+/* ------  second_container: "Ukraine forsvinder fra offentlig bevidsthed!" ------------ */
 .second_container {
     background-color: #005bbb;
     height: 100vh;
@@ -75,8 +76,8 @@ body > div.second_container > div > h2 {
     display: block;
 }
 
-/* map-chart */
 
+/* ------  map_container: "Hvordan kan vi forhindre, at Ukraine glider ud af..."------------ */
 
 .map_page {
     height: 50vh;
@@ -116,7 +117,8 @@ body > div.second_container > div > h2 {
 
 
 
-/* --  third container  -- */
+/* ------  third container: "Hvad kan man gøre for at nå ud til den bredere befolkning? "------------ */
+
 
 .third_container {
     display: flex;
@@ -157,6 +159,9 @@ body > div.second_container > div > h2 {
     right: 0;
     z-index: 1;
 }
+
+/* -------------------  top_word_container: "De mest anvendte ord i opslag"------------------- */
+
 
 .top_word_container {
     background-color: #ffd500;
@@ -206,7 +211,10 @@ body > div.second_container > div > h2 {
 */
 
 
-/* --  fourth container  -- */
+
+/* ------------  fourth container: "Videoer og statusopdateringer rækker længst!"-------------- */
+
+
 .fourth_container {
     background-color: #005bbb;
     height: 100vh;
@@ -236,7 +244,9 @@ body > div.second_container > div > h2 {
     width: 100%;
 }
 
-/* --  fifth container  -- */
+/* ------------  fifth_container: Politikere eller nyhedsmedier er den mest..... ---------- */
+
+
 .fifth_container {
     background-color: #ffd500;
     height: 100vh;
@@ -260,7 +270,11 @@ body > div.second_container > div > h2 {
     width: 100%;
 }
 
-/* -- sixth container -- */
+
+
+/* -------------- sixth container: Hvor langt bør et opslag være for at få flest reaktioner? ---------- */
+
+
 .sixth_container {
     background-color: #005bbb;
     height: 100vh;

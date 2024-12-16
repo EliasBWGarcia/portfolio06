@@ -312,7 +312,7 @@ fetch('http://localhost:3000/getData/textLength/reactions')
     })
 
 
-// -------------------------------- Chart ______ ------------------------ //
+// -------------------------------- Chart ------------------------ //
 
 fetch('http://localhost:3000/word-count')  // Adjust this URL if needed
     .then(response => response.json())
