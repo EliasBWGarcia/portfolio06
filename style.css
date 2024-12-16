@@ -85,7 +85,7 @@ body > div.second_container > div > h2 {
     height: 50vh;
     display: flex;
     justify-content: center;
-    background-color: #ffd500;
+    background-color: #EED202;
     color: white;
 }
 
@@ -146,7 +146,7 @@ body > div.second_container > div > h2 {
 }
 
 .third_container_color span {
-    color: #fbca02;
+    color: #EED202;
 }
 
 .third_graph_container {
@@ -166,7 +166,7 @@ body > div.second_container > div > h2 {
 
 
 .top_word_container {
-    background-color: #ffd500;
+    background-color: #EED202;
     height: 100vh;
     display: flex;
     flex-direction: row; /* Changed from row-reverse to row */
@@ -250,7 +250,7 @@ body > div.second_container > div > h2 {
 
 
 .fifth_container {
-    background-color: #ffd500;
+    background-color: #EED202;
     height: 100vh;
     display: flex;
     flex-direction: row; /* Changed  from row-reverse to row */
@@ -308,7 +308,7 @@ body > div.second_container > div > h2 {
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background-color: #ffd500;
+    background-color: #EED202;
     position: relative;
     text-align: center;
 }
